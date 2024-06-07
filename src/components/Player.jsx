@@ -1,49 +1,43 @@
-import { useState } from "react"
+import { useState } from 'react';
 
-const Player = ({name, symbol, onChangeName, active}) => {
-     
-    let [initialName, setInitialName] = useState(name)
-    const [edit, setEdit] = useState(false)
+const Player = ({ name, symbol, onChangeName, active }) => {
+  let [initialName, setInitialName] = useState(name);
+  const [edit, setEdit] = useState(false);
 
-    const handleEditClick = () => {
-        setEdit((edit) => !edit)
+  const handleEditClick = () => {
+    setEdit((edit) => !edit);
 
-        if(edit){
-            onChangeName(symbol, initialName)
-        }
+    if (edit) {
+      onChangeName(symbol, initialName);
     }
+  };
 
-    if(initialName.length > 15){
-        initialName = initialName.slice(0, 15)
-    }
+  if (initialName.length > 15) {
+    initialName = initialName.slice(0, 15);
+  }
 
-    
-    const handleName = e => {
-        setInitialName(e.target.value) 
-    }
-    
-    let player = (
-      <div className='flex items-center'>
-        <span className='text-white text-ellipsis truncate'>
-          {initialName}
-        </span>
+  const handleName = (e) => {
+    setInitialName(e.target.value);
+  };
+
+  let player = (
+    <div className='flex items-center'>
+      <span className='text-white text-ellipsis truncate'>{initialName}</span>
+    </div>
+  );
+
+  if (edit) {
+    player = (
+      <div className='flex text-ellipsis truncate ... flex-wrap break-words items-center '>
+        <input
+          className='max-w-28 w-full'
+          type='text'
+          value={initialName}
+          onChange={handleName}
+        />
       </div>
     );
-
-
-    if(edit){
-        player = (
-          <div className='flex text-ellipsis truncate ... flex-wrap break-words items-center '>
-            <input
-              className='max-w-28 w-full'
-              type='text'
-              value={initialName}
-              onChange={handleName}
-            />
-          </div>
-        );
- 
-    }
+  }
 
   return (
     <div
@@ -52,7 +46,7 @@ const Player = ({name, symbol, onChangeName, active}) => {
       }`}
     >
       <div
-        className={`flex flex-col sm:flex-row gap-x-3 px-4 py-2 bg-black items-center ${
+        className={`flex gap-x-3 px-4 py-2 bg-black items-center ${
           active ? 'bg-black/50' : ''
         }`}
       >
@@ -67,5 +61,5 @@ const Player = ({name, symbol, onChangeName, active}) => {
       </button>
     </div>
   );
-}
-export default Player
+};
+export default Player;
